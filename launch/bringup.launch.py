@@ -6,8 +6,6 @@ from launch.substitutions import EnvironmentVariable, FindExecutable, PathJoinSu
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
-#Test Comment
-
 def generate_launch_description():
 
     # Get URDF via xacro
