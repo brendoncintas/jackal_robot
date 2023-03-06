@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess, GroupAction, IncludeLaunchDescription
+from launch.actions import ExecuteProcess, GroupAction, IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import EnvironmentVariable, FindExecutable, PathJoinSubstitution
 
@@ -77,11 +77,17 @@ def generate_launch_description():
         ),
 
         # MicroROS Agent
-        Node(
-            package='micro_ros_agent',
-            executable='micro_ros_agent',
-            arguments=['serial', '--dev', '/dev/jackal'],
-            output='screen'),
+        TimerAction(
+            period=5.0,
+            actions=[
+                Node(
+                    package='micro_ros_agent',
+                    executable='micro_ros_agent',
+                    arguments=['serial', '--dev', '/dev/jackal'],
+                    output='screen')
+                ]
+            ),
+
 
         # Set ROS_DOMAIN_ID
         ExecuteProcess(
